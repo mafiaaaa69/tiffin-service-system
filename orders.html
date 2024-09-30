@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders - Tiffin Service</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .order-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #orderList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f4f4f4;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .order-details {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .order-price {
+            font-weight: bold;
+            color: #333;
+        }
+
+        #checkoutBtn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #checkoutBtn:hover {
+            background-color: #218838;
+        }
+
+        #checkoutSummary {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .total-price {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="order-section">
+        <h2>Your Order</h2>
+        <ul id="orderList"></ul>
+
+        <!-- Checkout Button -->
+        <div class="total-price" id="totalPrice"></div>
+        <button id="checkoutBtn">Checkout</button>
+        <p id="checkoutSummary"></p>
+    </section>
+
+    <script>
+        const dishImages = {
+            "Paneer Butter Masala": "images/paneer-butter-masala.jpg",
+            "Vegetable Pulao": "images/vegetable-pulao.jpg",
+            "Chicken Biryani": "images/chicken-biryani.jpg",
+            "Dal Tadka": "images/dal-tadka.jpg",
+            "Aloo Paratha": "images/aloo-paratha.jpg",
+            "Palak Paneer": "images/palak-paneer.jpg",
+            "Chole Bhature": "images/chole-bhature.jpg",
+            "Rajma Chawal": "images/rajma-chawal.jpg",
+            "Butter Chicken": "images/butter-chicken.jpg",
+            "Mix Veg Curry": "images/mix-veg-curry.jpg"
+        };
+
+        // Load order items from localStorage and display them in the list
+        function loadOrder() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderList = document.getElementById('orderList');
+            orderList.innerHTML = '';
+            let totalPrice = 0;
+
+            if (cart.length === 0) {
+                orderList.innerHTML = '<li>No items in your order.</li>';
+            } else {
+                cart.forEach((item, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('order-item');
+
+                    const image = document.createElement('img');
+                    image.src = dishImages[item.dish];
+                    image.alt = item.dish;
+
+                    const details = document.createElement('div');
+                    details.classList.add('order-details');
+                    details.textContent = item.dish;
+
+                    const price = document.createElement('div');
+                    price.classList.add('order-price');
+                    price.textContent = "₹" + item.price;
+
+                    listItem.appendChild(image);
+                    listItem.appendChild(details);
+                    listItem.appendChild(price);
+                    orderList.appendChild(listItem);
+
+                    totalPrice += item.price;
+                });
+            }
+            document.getElementById('totalPrice').textContent = "Total Price: ₹" + totalPrice;
+        }
+
+        // Checkout button functionality
+        document.getElementById('checkoutBtn').addEventListener('click', function() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                document.getElementById('checkoutSummary').textContent = "Your cart is empty.";
+            } else {
+                document.getElementById('checkoutSummary').textContent = "You have ordered: " + cart.map(item => item.dish).join(', ') + ".";
+                // Clear cart after checkout
+                localStorage.removeItem('cart');
+                document.getElementById('orderList').innerHTML = '';
+                document.getElementById('totalPrice').textContent = '';
+            }
+        });
+
+        // Load order when the page loads
+        window.onload = loadOrder;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Tiffin Service</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="menu-section">
+        <h2>Our Menu</h2>
+
+        <!-- Dish 1 -->
+        <div class="dish">
+            <img src="images/paneer-butter-masala.jpg" alt="Paneer Butter Masala" class="dish-image">
+            <h3>Paneer Butter Masala - ₹250</h3>
+            <p>Creamy, flavorful curry made with soft paneer cubes in a rich tomato-based gravy.</p>
+            <button onclick="addToCart('Paneer Butter Masala', 250)">Order Now</button>
+        </div>
+
+        <!-- Dish 2 -->
+        <div class="dish">
+            <img src="images/vegetable-pulao.jpg" alt="Vegetable Pulao" class="dish-image">
+            <h3>Vegetable Pulao - ₹150</h3>
+            <p>Aromatic rice cooked with fresh vegetables and delicate spices for a healthy meal.</p>
+            <button onclick="addToCart('Vegetable Pulao', 150)">Order Now</button>
+        </div>
+
+        <!-- Dish 3 -->
+        <div class="dish">
+            <img src="images/chicken-biryani.jpg" alt="Chicken Biryani" class="dish-image">
+            <h3>Chicken Biryani - ₹300</h3>
+            <p>Classic Indian rice dish with tender chicken, fragrant spices, and saffron-infused rice.</p>
+            <button onclick="addToCart('Chicken Biryani', 300)">Order Now</button>
+        </div>
+
+        <!-- Dish 4 -->
+        <div class="dish">
+            <img src="images/dal-tadka.jpg" alt="Dal Tadka" class="dish-image">
+            <h3>Dal Tadka - ₹120</h3>
+            <p>Yellow lentils cooked to perfection and tempered with cumin, garlic, and red chilies.</p>
+            <button onclick="addToCart('Dal Tadka', 120)">Order Now</button>
+        </div>
+
+        <!-- Dish 5 -->
+        <div class="dish">
+            <img src="images/aloo-paratha.jpg" alt="Aloo Paratha" class="dish-image">
+            <h3>Aloo Paratha - ₹100</h3>
+            <p>Stuffed whole wheat flatbread filled with spiced mashed potatoes, served with yogurt.</p>
+            <button onclick="addToCart('Aloo Paratha', 100)">Order Now</button>
+        </div>
+
+        <!-- Dish 6 -->
+        <div class="dish">
+            <img src="images/palak-paneer.jpg" alt="Palak Paneer" class="dish-image">
+            <h3>Palak Paneer - ₹220</h3>
+            <p>Fresh spinach puree cooked with cottage cheese cubes and flavored with spices.</p>
+            <button onclick="addToCart('Palak Paneer', 220)">Order Now</button>
+        </div>
+
+        <!-- Dish 7 -->
+        <div class="dish">
+            <img src="images/chole-bhature.jpg" alt="Chole Bhature" class="dish-image">
+            <h3>Chole Bhature - ₹180</h3>
+            <p>Spicy chickpea curry served with deep-fried puffed bread, a North Indian favorite.</p>
+            <button onclick="addToCart('Chole Bhature', 180)">Order Now</button>
+        </div>
+
+        <!-- Dish 8 -->
+        <div class="dish">
+            <img src="images/rajma-chawal.jpg" alt="Rajma Chawal" class="dish-image">
+            <h3>Rajma Chawal - ₹160</h3>
+            <p>Red kidney beans cooked in a tangy tomato-based gravy, served with steamed rice.</p>
+            <button onclick="addToCart('Rajma Chawal', 160)">Order Now</button>
+        </div>
+
+        <!-- Dish 9 -->
+        <div class="dish">
+            <img src="images/butter-chicken.jpg" alt="Butter Chicken" class="dish-image">
+            <h3>Butter Chicken - ₹320</h3>
+            <p>Grilled chicken cooked in a velvety tomato sauce enriched with butter and cream.</p>
+            <button onclick="addToCart('Butter Chicken', 320)">Order Now</button>
+        </div>
+
+        <!-- Dish 10 -->
+        <div class="dish">
+            <img src="images/mix-veg-curry.jpg" alt="Mix Veg Curry" class="dish-image">
+            <h3>Mix Veg Curry - ₹180</h3>
+            <p>A delightful combination of seasonal vegetables cooked in a light and flavorful curry.</p>
+            <button onclick="addToCart('Mix Veg Curry', 180)">Order Now</button>
+        </div>
+    </section>
+
+    <script>
+        // Add selected dish to localStorage along with price to persist order between pages
+        function addToCart(dish, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ dish: dish, price: price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(dish + " added to your order!");
+        }
+    </script>
+
+</body>
+</html>
